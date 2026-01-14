@@ -12,6 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ord.orderscenter.screens_ui.ActionOutlinedButton
+import compose.icons.FontAwesomeIcons
+import compose.icons.fontawesomeicons.Solid
+import compose.icons.fontawesomeicons.solid.CheckCircle
+import compose.icons.fontawesomeicons.solid.Cogs
+import compose.icons.fontawesomeicons.solid.ExclamationTriangle
+import compose.icons.fontawesomeicons.solid.Plus
+import compose.icons.fontawesomeicons.solid.ShoppingCart
 
 @Composable
 fun ActionButtonsBox(
@@ -44,14 +51,14 @@ fun ActionButtonsBox(
             ) {
                 ActionOutlinedButton(
                     text = "Add Order",
-                    icon = Icons.Default.Add,
+                    icon = FontAwesomeIcons.Solid.Plus,
                     modifier = Modifier.weight(1f),
                     onClick = onAddOrder
                 )
 
                 ActionOutlinedButton(
-                    text = "Add Sales",
-                    icon = Icons.Default.ShoppingCart,
+                    text = "All Orders",
+                    icon = FontAwesomeIcons.Solid.ShoppingCart,
                     modifier = Modifier.weight(1f),
                     onClick = onAddSales
                 )
@@ -64,14 +71,14 @@ fun ActionButtonsBox(
             ) {
                 ActionOutlinedButton(
                     text = "Paid Orders",
-                    icon = Icons.Default.CheckCircle,
+                    icon = FontAwesomeIcons.Solid.CheckCircle,
                     modifier = Modifier.weight(1f),
                     onClick = onViewPaid
                 )
 
                 ActionOutlinedButton(
                     text = "Unpaid Orders",
-                    icon = Icons.Default.Warning,
+                    icon = FontAwesomeIcons.Solid.ExclamationTriangle,
                     modifier = Modifier.weight(1f),
                     onClick = onViewUnpaid
                 )
@@ -81,9 +88,17 @@ fun ActionButtonsBox(
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
+
+//                ActionOutlinedButton(
+//                    text = "Settings",
+//                    icon = FontAwesomeIcons.Solid.Cogs,
+//                    modifier = Modifier.weight(1f),
+//                    onClick = onSettings
+//                )
+
                 ActionOutlinedButton(
                     text = "Settings",
-                    icon = Icons.Default.Settings,
+                    icon = FontAwesomeIcons.Solid.Cogs,
                     modifier = Modifier.weight(1f),
                     onClick = onSettings
                 )
