@@ -11,11 +11,20 @@
 
 <!--    main app colors-->
 
-    <color name="olive_leaf">#606C38</color>
-    <color name="black_forest">#283618</color>
-    <color name="cornsilk">#FEFAE0</color>
-    <color name="sunlit_clay">#DDA15E</color>
-    <color name="copperwood">#BC6C25</color>
+
+
+        <color name="space_indigo">#2B2D42</color>
+        <color name="lavender_grey">#8D99AE</color>
+        <color name="platinum">#EDF2F4</color>
+        <color name="punch_red">#EF233C</color>
+        <color name="flag_red">#D90429</color>
+
+
+    <!--    <color name="olive_leaf">#606C38</color>-->
+<!--    <color name="black_forest">#283618</color>-->
+<!--    <color name="cornsilk">#FEFAE0</color>-->
+<!--    <color name="sunlit_clay">#DDA15E</color>-->
+<!--    <color name="copperwood">#BC6C25</color>-->
 
 
 </resources>

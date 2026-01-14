@@ -36,6 +36,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ord.orderscenter.navgraph.Screen
+import com.ord.orderscenter.screens_ui.screen_components.ActionButtonsBox
+import com.ord.orderscenter.screens_ui.screen_components.StatsBox
 import com.ord.orderscenter.utils.StatusBarColor
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
@@ -54,7 +56,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavController) {
-    val backgroundColor = colorResource(id = R.color.black_forest)
+    val backgroundColor = colorResource(id = R.color.punch_red)
     StatusBarColor(backgroundColor)
 
 
@@ -113,10 +115,18 @@ fun MainScreen(navController: NavController) {
                         end = paddingValues.calculateEndPadding(LocalLayoutDirection.current) + 12.dp,
                     )
             ) {
+                Spacer(modifier = Modifier.height(16.dp))
+                StatsBox()
 
-                Text("home screen", color = colorResource(id=R.color.olive_leaf))
+                Spacer(modifier = Modifier.height(16.dp))
 
-
+                ActionButtonsBox(
+                    onAddOrder = { /* navigate */ },
+                    onAddSales = { /* navigate */ },
+                    onViewPaid = { /* navigate */ },
+                    onViewUnpaid = { /* navigate */ },
+                    onSettings = { navController.navigate(Screen.Settings.route) }
+                )
 
 
             }
@@ -138,5 +148,66 @@ fun MainScreen(navController: NavController) {
 @Composable
 fun MainScreenPreview() {
     MainScreen(navController = rememberNavController())
+}
+
+@Composable
+fun StatItem(
+    title: String,
+    value: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = title,
+            fontSize = 13.sp,
+            color = Color.Gray
+        )
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        Text(
+            text = value,
+            fontSize = 20.sp,
+            color = Color.Black
+        )
+    }
+}
+
+
+
+///buttons for navigations
+@Composable
+fun ActionOutlinedButton(
+    text: String,
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier.height(100.dp),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = Color.Transparent
+        )
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = text,
+                modifier = Modifier.size(28.dp)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = text,
+                fontSize = 12.sp
+            )
+        }
+    }
 }
 

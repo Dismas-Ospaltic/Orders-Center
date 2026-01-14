@@ -52,7 +52,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddOrderScreen(navController: NavController) {
-    val backgroundColor = colorResource(id = R.color.black_forest)
+    val backgroundColor = colorResource(id = R.color.punch_red)
     StatusBarColor(backgroundColor)
 
 
@@ -99,7 +99,7 @@ fun AddOrderScreen(navController: NavController) {
                     )
             ) {
 
-                Text("order screen", color = colorResource(id=R.color.olive_leaf))
+                Text("order screen", color = colorResource(id=R.color.punch_red))
 
 
 
