@@ -6,6 +6,7 @@ package com.ord.orderscenter.screens_ui
 
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,6 +46,7 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.regular.ThumbsUp
 import compose.icons.fontawesomeicons.regular.TrashAlt
 import compose.icons.fontawesomeicons.solid.CircleNotch
+import compose.icons.fontawesomeicons.solid.ClipboardList
 import compose.icons.fontawesomeicons.solid.Cog
 import compose.icons.fontawesomeicons.solid.InfoCircle
 import compose.icons.fontawesomeicons.solid.Pen
@@ -71,17 +73,48 @@ fun MainScreen(navController: NavController) {
                 actions = {
 
 
-                        IconButton(onClick = {
-                            navController.navigate(Screen.Settings.route)
-                        }) {
+//                        IconButton(onClick = {
+//                            navController.navigate(Screen.Settings.route)
+//                        }) {
+//                            Icon(
+//                                imageVector = FontAwesomeIcons.Solid.Cog,
+//                                contentDescription = "settings",
+//                                tint = Color.White,
+//                                modifier = Modifier.size(24.dp)
+//                            )
+//                        }
+
+
+
+
+                    Button(
+                        onClick = {
+
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id=R.color.space_indigo))
+                    ) {
+//                        Text("Today's Orders", color = Color.White)
+
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(3.dp),
+                            modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp)
+                        ) {
                             Icon(
-                                imageVector = FontAwesomeIcons.Solid.Cog,
-                                contentDescription = "settings",
-                                tint = Color.White,
-                                modifier = Modifier.size(24.dp)
+                                imageVector = FontAwesomeIcons.Solid.ClipboardList,
+                                contentDescription = "Today's Orders",
+                                tint = colorResource(id=R.color.white),
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = "Today's Orders",
+                                color = colorResource(id=R.color.white),
+                                fontSize = 16.sp
                             )
                         }
-
+                    }
 
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -121,7 +154,9 @@ fun MainScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 ActionButtonsBox(
-                    onAddOrder = { /* navigate */ },
+                    onAddOrder = {
+                    navController.navigate(Screen.AddOrder.route)
+                    /* navigate */ },
                     onAddSales = { /* navigate */ },
                     onViewPaid = { /* navigate */ },
                     onViewUnpaid = { /* navigate */ },
@@ -179,35 +214,77 @@ fun StatItem(
 
 
 ///buttons for navigations
-@Composable
-fun ActionOutlinedButton(
-    text: String,
-    icon: ImageVector,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
-    OutlinedButton(
-        onClick = onClick,
-        modifier = modifier.height(100.dp),
-        colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color.Transparent
-        )
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = text,
-                modifier = Modifier.size(28.dp)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = text,
-                fontSize = 12.sp
-            )
-        }
-    }
-}
+//@Composable
+//fun ActionOutlinedButton(
+//    text: String,
+//    icon: ImageVector,
+//    modifier: Modifier = Modifier,
+//    onClick: () -> Unit
+//) {
+//    OutlinedButton(
+//        onClick = onClick,
+//        modifier = modifier.height(100.dp),
+//        colors = ButtonDefaults.outlinedButtonColors(
+//            containerColor = Color.Transparent
+//        )
+//    ) {
+//        Column(
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Center
+//        ) {
+//            Icon(
+//                imageVector = icon,
+//                contentDescription = text,
+//                modifier = Modifier.size(28.dp)
+//            )
+//            Spacer(modifier = Modifier.height(8.dp))
+//            Text(
+//                text = text,
+//                fontSize = 12.sp
+//            )
+//        }
+//    }
+//}
+
+//@Composable
+//fun ActionOutlinedButton(
+//    text: String,
+//    icon: ImageVector,
+//    modifier: Modifier = Modifier,
+//    onClick: () -> Unit
+//) {
+//
+//    val borderColor = colorResource(id = R.color.punch_red)
+//    val contentColor = colorResource(id = R.color.space_indigo)
+//
+//    OutlinedButton(
+//        onClick = onClick,
+//        modifier = modifier.height(100.dp),
+//        colors = ButtonDefaults.outlinedButtonColors(
+//            containerColor = Color.Transparent,
+//            contentColor = contentColor
+//        ),
+//        border = BorderStroke(1.dp, borderColor)
+//    ) {
+//        Column(
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Center
+//        ) {
+//            Icon(
+//                imageVector = icon,
+//                contentDescription = text,
+//                tint = contentColor,
+//                modifier = Modifier.size(28.dp)
+//            )
+//
+//            Spacer(modifier = Modifier.height(8.dp))
+//
+//            Text(
+//                text = text,
+//                fontSize = 12.sp,
+//                color = contentColor
+//            )
+//        }
+//    }
+//}
 

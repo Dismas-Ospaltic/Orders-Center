@@ -39,8 +39,10 @@ import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.regular.ThumbsUp
 import compose.icons.fontawesomeicons.regular.TrashAlt
+import compose.icons.fontawesomeicons.solid.AngleLeft
 import compose.icons.fontawesomeicons.solid.CircleNotch
 import compose.icons.fontawesomeicons.solid.Cog
+import compose.icons.fontawesomeicons.solid.Cogs
 import compose.icons.fontawesomeicons.solid.InfoCircle
 import compose.icons.fontawesomeicons.solid.Pen
 import compose.icons.fontawesomeicons.solid.Plus
@@ -62,9 +64,10 @@ fun SettingScreen(navController: NavController) {
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            imageVector = FontAwesomeIcons.Solid.AngleLeft,
                             contentDescription = "Back",
-                            tint = Color.White
+                            tint = Color.White,
+                            modifier = Modifier.size(24.dp)
                         )
                     }
                 },
