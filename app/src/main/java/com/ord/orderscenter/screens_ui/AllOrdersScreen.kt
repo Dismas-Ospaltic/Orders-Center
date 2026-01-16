@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
@@ -436,6 +437,57 @@ fun AllOrdersScreen(navController: NavController) {
 
 
 
+//@Composable
+//fun PaginationBar(
+//    currentPage: Int,
+//    totalPages: Int,
+//    onPageChange: (Int) -> Unit
+//) {
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(12.dp)
+//            .background(Color(0xFFF5F5F5), RoundedCornerShape(30.dp))
+//            .padding(8.dp),
+//        horizontalArrangement = Arrangement.Center,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//
+//        TextButton(
+//            onClick = { if (currentPage > 1) onPageChange(currentPage - 1) },
+//            enabled = currentPage > 1
+//        ) { Text("Previous") }
+//
+//        Spacer(modifier = Modifier.width(6.dp))
+//
+//        for (page in 1..totalPages) {
+//            if (page <= 4 || page == totalPages) {
+//                TextButton(
+//                    onClick = { onPageChange(page) },
+//                    colors = ButtonDefaults.textButtonColors(
+//                        contentColor = if (page == currentPage) Color.White else Color.Black
+//                    ),
+//                    modifier = Modifier
+//                        .background(
+//                            if (page == currentPage) Color(0xFF3F51B5) else Color.Transparent,
+//                            RoundedCornerShape(50)
+//                        )
+//                ) {
+//                    Text(page.toString())
+//                }
+//            }
+//        }
+//
+//        Spacer(modifier = Modifier.width(6.dp))
+//
+//        TextButton(
+//            onClick = { if (currentPage < totalPages) onPageChange(currentPage + 1) },
+//            enabled = currentPage < totalPages
+//        ) { Text("Next") }
+//    }
+//}
+
+
 @Composable
 fun PaginationBar(
     currentPage: Int,
@@ -445,47 +497,113 @@ fun PaginationBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp)
-            .background(Color(0xFFF5F5F5), RoundedCornerShape(30.dp))
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.Center,
+            .padding(vertical = 12.dp)
+            .horizontalScroll(rememberScrollState())
+            .background(
+                color = Color(0xFFF4F4F4),
+                shape = RoundedCornerShape(32.dp)
+            )
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        TextButton(
-            onClick = { if (currentPage > 1) onPageChange(currentPage - 1) },
+        // ◀ Previous
+        PaginationAction(
+            text = "‹",
             enabled = currentPage > 1
-        ) { Text("Previous") }
+        ) { onPageChange(currentPage - 1) }
 
-        Spacer(modifier = Modifier.width(6.dp))
+        Spacer(modifier = Modifier.width(8.dp))
 
-        for (page in 1..totalPages) {
-            if (page <= 4 || page == totalPages) {
-                TextButton(
-                    onClick = { onPageChange(page) },
-                    colors = ButtonDefaults.textButtonColors(
-                        contentColor = if (page == currentPage) Color.White else Color.Black
-                    ),
-                    modifier = Modifier
-                        .background(
-                            if (page == currentPage) Color(0xFF3F51B5) else Color.Transparent,
-                            RoundedCornerShape(50)
-                        )
-                ) {
-                    Text(page.toString())
+        val visiblePages = buildList {
+            add(1)
+
+            if (currentPage > 4) add(-1) // ellipsis
+
+            for (page in (currentPage - 2)..(currentPage + 2)) {
+                if (page in 2 until totalPages) add(page)
+            }
+
+            if (currentPage < totalPages - 3) add(-1)
+
+            if (totalPages > 1) add(totalPages)
+        }.distinct()
+
+        visiblePages.forEach { page ->
+            when (page) {
+                -1 -> {
+                    Text(
+                        text = "…",
+                        modifier = Modifier.padding(horizontal = 6.dp),
+                        color = Color.Gray,
+                        fontSize = 16.sp
+                    )
+                }
+                else -> {
+                    PageButton(
+                        page = page,
+                        isActive = page == currentPage,
+                        onClick = { onPageChange(page) }
+                    )
                 }
             }
         }
 
-        Spacer(modifier = Modifier.width(6.dp))
+        Spacer(modifier = Modifier.width(8.dp))
 
-        TextButton(
-            onClick = { if (currentPage < totalPages) onPageChange(currentPage + 1) },
+        // ▶ Next
+        PaginationAction(
+            text = "›",
             enabled = currentPage < totalPages
-        ) { Text("Next") }
+        ) { onPageChange(currentPage + 1) }
     }
 }
 
+@Composable
+private fun PageButton(
+    page: Int,
+    isActive: Boolean,
+    onClick: () -> Unit
+) {
+    TextButton(
+        onClick = onClick,
+        modifier = Modifier
+            .padding(horizontal = 2.dp)
+            .background(
+                if (isActive) colorResource(id = R.color.punch_red)
+                else Color.Transparent,
+                RoundedCornerShape(50)
+            ),
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = if (isActive) Color.White else Color.Black
+        )
+    ) {
+        Text(
+            text = page.toString(),
+            fontWeight = if (isActive) FontWeight.Bold else FontWeight.Normal
+        )
+    }
+}
+
+
+@Composable
+private fun PaginationAction(
+    text: String,
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
+    TextButton(
+        onClick = onClick,
+        enabled = enabled,
+        shape = RoundedCornerShape(50)
+    ) {
+        Text(
+            text = text,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
 
 
 
