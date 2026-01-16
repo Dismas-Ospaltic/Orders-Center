@@ -118,7 +118,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ord.orderscenter.R
 import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.solid.*
 
 /* ---------------------------------------------------
    ACTION BUTTONS BOX
@@ -127,7 +126,7 @@ import compose.icons.fontawesomeicons.solid.*
 @Composable
 fun ActionButtonsBox(
     onAddOrder: () -> Unit,
-    onAddSales: () -> Unit,
+    onAllOrders: () -> Unit,
     onViewPaid: () -> Unit,
     onViewUnpaid: () -> Unit,
     onSettings: () -> Unit
@@ -164,7 +163,7 @@ fun ActionButtonsBox(
                     text = "All Orders",
                     icon = FontAwesomeIcons.Solid.ShoppingCart,
                     modifier = Modifier.weight(1f),
-                    onClick = onAddSales
+                    onClick = onAllOrders
                 )
             }
 

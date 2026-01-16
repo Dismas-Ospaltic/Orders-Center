@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import com.ord.orderscenter.screens_ui.AddOrderScreen
 import com.ord.orderscenter.screens_ui.MainScreen
 import com.ord.orderscenter.screens_ui.SettingScreen
+import com.ord.orderscenter.screens_ui.AllOrdersScreen
 import org.koin.androidx.compose.getViewModel
 
 
@@ -20,7 +21,7 @@ sealed class Screen(val route: String) {
     object Settings : Screen("settings")
 
     object AddOrder : Screen("addOrder")
-
+    object AllOrders: Screen("allOrders")
 
 
 }
@@ -42,6 +43,7 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier) {
         composable(Screen.Settings.route) { SettingScreen(navController) }
         composable(Screen.AddOrder.route) { AddOrderScreen(navController) }
 
+        composable(Screen.AllOrders.route){AllOrdersScreen(navController)}
 
 
     }
