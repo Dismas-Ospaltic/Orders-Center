@@ -15,5 +15,6 @@ data class IndividualItemEntity(
     val quantity: Int,
     val qtyDescription: String? = null,
     val orderNumber: String,
+    val itemId: String, //unique for each item system generated
     val timestamp: Long = System.currentTimeMillis()
 )
