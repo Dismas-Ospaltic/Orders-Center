@@ -13,9 +13,6 @@ class GeneralOrdersRepository(private val generalDao: GeneralDao) {
     // 🔹 Get all gen Order (Flow for real-time UI updates)
     fun getAllGenOrders(): Flow<List<GeneralOrdersEntity>> = generalDao.getAllGenOrders()
 
-//    // 🔹 Get all stock updates once (for one-time fetch)
-//    suspend fun getAllStockUpdatesOnce(): List<StockEntity> = stockDao.getAllInvUpdateOnce()
-
     // 🔹 Insert new order
     suspend fun insertGenOrder(genOrder: GeneralOrdersEntity) = generalDao.insertGenOrder(genOrder)
 
@@ -74,7 +71,10 @@ class GeneralOrdersRepository(private val generalDao: GeneralDao) {
             .map { total -> total ?: 0.0f }  // Convert NULL to 0.0
     }
 
-
+    suspend fun getTotalOrders(): Flow<Float> {
+        return generalDao.getTotalOrders()
+            .map { total -> total ?: 0.0f }  // Convert NULL to 0.0
+    }
 
 
 }

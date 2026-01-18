@@ -32,17 +32,6 @@ interface IndividualDao {
     // 🔹 Delete an item order by unique ID
     @Query("DELETE FROM individual_orders WHERE orderNumber = :orderNumber AND itemId=:itemId")
     suspend fun deleteSingleOrderItemByNumber(orderNumber: String,itemId: String): Int
-//    @Query("""
-//        UPDATE general_orders
-//        SET status= :newStatus
-//        WHERE orderNumber = :orderNumber
-//    """)
-//    suspend fun updateOrderStatusById(
-//        newStatus: String,
-//        orderNumber: String
-//    ): Int?
-
-
 
     @Query("""
         UPDATE individual_orders 
@@ -62,21 +51,5 @@ interface IndividualDao {
       itemId: String
     ): Int?
 
-//    // 🔹 Count all orders
-//    @Query("SELECT COUNT(*) FROM general_orders")
-//    suspend fun getAllGenOrderCount(): Int
-//
-//    @Query("SELECT COUNT(*) FROM general_orders WHERE status = 'unpaid' AND date =:date")
-//    suspend fun getAllUnpaidOrderCount(date: String): Int
-//
-//    @Query("SELECT COUNT(*) FROM general_orders WHERE status = 'paid' AND date =:date")
-//    fun getAllPaidOrderCount(date: String): Flow<Int?>
-//
-//    @Query("SELECT SUM(totalOrder) FROM general_orders WHERE date=:date")
-//    fun getTodayTotalOrders(date: String): Flow<Float?>
-//
-//
-//    @Query("SELECT SUM(totalOrder) FROM general_orders")
-//    fun getTotalOrders(): Flow<Float?>
 
 }
