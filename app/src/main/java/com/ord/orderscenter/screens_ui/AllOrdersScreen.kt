@@ -80,14 +80,6 @@ fun AllOrdersScreen(navController: NavController) {
 
     val itemsPerPage = 4
 
-    // 🔍 Filter logic
-//    val filteredOrders = remember(searchQuery) {
-//        allOrders.filter {
-//            it.customerName.contains(searchQuery, ignoreCase = true) ||
-//                    it.phone.contains(searchQuery) ||
-//                    it.id.contains(searchQuery)
-//        }
-//    }
 
     val filteredOrders = remember(searchQuery, allOrders) {
         allOrders.filter {
@@ -166,7 +158,7 @@ fun AllOrdersScreen(navController: NavController) {
                         Icon(
                             imageVector = FontAwesomeIcons.Solid.Search,
                             contentDescription = "Search Icon",
-                            tint = Color.Gray,
+                            tint = colorResource(id=R.color.space_indigo),
                             modifier = Modifier.size(24.dp)
                         )
                     },
@@ -174,7 +166,7 @@ fun AllOrdersScreen(navController: NavController) {
                         .fillMaxWidth()
                         .padding(4.dp)
                         .clip(RoundedCornerShape(4.dp))
-                        .background(Color.White),
+                        .background(Color.Gray),
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
                         unfocusedContainerColor = Color.Transparent,
@@ -363,60 +355,6 @@ private fun PaginationAction(
 
 
 
-//@Composable
-//fun OrderCard(order: OrderItem) {
-//
-//    val statusColor = when (order.status.lowercase()) {
-//        "paid" -> Color(0xFF4CAF50)
-//        "unpaid" -> Color(0xFFE53935)
-//        else -> Color.Gray
-//    }
-//
-//    Card(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(vertical = 6.dp),
-//        shape = RoundedCornerShape(16.dp),
-//        elevation = CardDefaults.cardElevation(6.dp)
-//    ) {
-//        Column(modifier = Modifier.padding(16.dp)) {
-//
-//            Row(
-//                modifier = Modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                Text(order.id, fontWeight = FontWeight.Bold)
-//                Box(
-//                    modifier = Modifier
-//                        .background(statusColor, RoundedCornerShape(20.dp))
-//                        .padding(horizontal = 12.dp, vertical = 4.dp)
-//                ) {
-//                    Text(order.status, color = Color.White, fontSize = 12.sp)
-//                }
-//            }
-//
-//            Spacer(modifier = Modifier.height(6.dp))
-//
-//            Text(order.customerName, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-//            Text(order.phone, fontSize = 13.sp, color = Color.Gray)
-//
-//            Spacer(modifier = Modifier.height(12.dp))
-//
-//            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-//                Column {
-//                    Text("Total", fontSize = 12.sp, color = Color.Gray)
-//                    Text("KES ${order.total}", fontWeight = FontWeight.Bold)
-//                }
-//                Column(horizontalAlignment = Alignment.End) {
-//                    Text("Date", fontSize = 12.sp, color = Color.Gray)
-//                    Text(order.date, fontWeight = FontWeight.Medium)
-//                }
-//            }
-//        }
-//    }
-//}
-
-
 @Composable
 fun OrderCard(order: GeneralOrdersEntity, navController: NavController) {
 
@@ -424,6 +362,12 @@ fun OrderCard(order: GeneralOrdersEntity, navController: NavController) {
     var selectedOrderNumber by remember { mutableStateOf<String?>(null) }
     var showActionPopUp by remember { mutableStateOf(false) }
     var selectedStatus by remember { mutableStateOf<String?>(null) }
+    var selectedTotal by remember { mutableStateOf<Float?>(null) }
+    var selectedCustomerName by remember { mutableStateOf<String?>(null) }
+    var selectedPhone by remember { mutableStateOf<String?>(null) }
+    var selectedAddress by remember { mutableStateOf<String?>(null) }
+
+
     val statusColor = when (order.status.lowercase()) {
         "paid" -> Color(0xFF4CAF50)
         "unpaid" -> Color(0xFFE53935)
@@ -436,8 +380,12 @@ fun OrderCard(order: GeneralOrdersEntity, navController: NavController) {
             .padding(vertical = 6.dp)
             .clickable {
                 selectedOrderNumber = order.orderNumber.toString()
-                showActionPopUp=true
+                showActionPopUp = true
                 selectedStatus = order.status
+                selectedTotal = order.totalOrder.toFloat()
+                selectedCustomerName = order.customerName
+                selectedPhone = order.phone
+                selectedAddress = order.addressDescription
             },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(6.dp)
@@ -465,8 +413,11 @@ fun OrderCard(order: GeneralOrdersEntity, navController: NavController) {
 
             Spacer(modifier = Modifier.height(6.dp))
 
-            Text(order.customerName, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-            Text(order.phone, fontSize = 13.sp, color = Color.Gray)
+            Text("Customer Name:${order.customerName}", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+            Text("Phone: ${order.phone}", fontSize = 13.sp, color = Color.Gray)
+            if(order.addressDescription!!.isNotEmpty()){
+                Text("address description: ${order.addressDescription}", fontSize = 13.sp, color = Color.Gray)
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -491,38 +442,28 @@ fun OrderCard(order: GeneralOrdersEntity, navController: NavController) {
     if (showActionPopUp) {
         ActionPopup(
             navController,
-            onDismiss = {  showActionPopUp = false },
+            onDismiss = { showActionPopUp = false },
             orderNumber = selectedOrderNumber.toString(),
-            status = selectedStatus.toString()
+            status = selectedStatus.toString(),
+            total = selectedTotal?.toFloat() ?: 0.0f,
+            selectedCustomerName.toString(),
+            selectedPhone.toString(),
+            selectedAddress.toString()
         )
 
     }
+
+
+
+
+
+
 }
 
 
 
 
 
-//data class OrderItem(
-//    val id: String,
-//    val date: String,
-//    val customerName: String,
-//    val phone: String,
-//    val status: String,
-//    val total: Int
-//)
-
-//fun mockOrders(): List<OrderItem> =
-//    List(100) {
-//        OrderItem(
-//            id = "ORD-${1000 + it}",
-//            date = "2026-01-${10 + it}",
-//            customerName = "Customer ${it + 1}",
-//            phone = "07${(10000000..99999999).random()}",
-//            status = if (it % 2 == 0) "Paid" else "Unpaid",
-//            total = (1000..15000).random()
-//        )
-//    }
 
 @Composable
 fun EmptyState(

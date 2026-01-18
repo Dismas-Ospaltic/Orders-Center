@@ -594,7 +594,7 @@ fun AddOrderScreen(
                     modifier = Modifier.align(Alignment.End),
                     shape = RoundedCornerShape(50),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF2E2E6D)
+                        containerColor = colorResource(id=R.color.space_indigo)
                     )
                 ) {
                     Icon(
@@ -642,19 +642,7 @@ fun AddOrderScreen(
                         } else {
 
 
-//                            items.forEachIndexed { _, item ->
-//                                individualOrderViewModel.insertIndividualOrder(
-//                                    IndividualItemEntity(
-//                                        itemName = item.name,
-//                                        price = item.price.toFloat(),
-//                                        quantity = item.quantity.toInt(),
-//                                        qtyDescription = item.quantity.toString(),
-//                                        orderNumber = orderNumber,
-//                                        itemId = generateItemId(orderNumber, index)
-//                                    )
-//                                )
-//
-//                            }
+
 
                             val orderNumber = generateOrderNumber()
 

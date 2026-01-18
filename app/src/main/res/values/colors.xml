@@ -18,6 +18,15 @@
         <color name="platinum">#EDF2F4</color>
         <color name="punch_red">#EF233C</color>
         <color name="flag_red">#D90429</color>
+    <color name="platinum02">#EDF2F4</color>
+    <color name="platinum_40">#66EDF2F4</color>
+
+    <color name="space_indigo_20">#332B2D42</color>
+    <color name="lavender_grey_20">#338D99AE</color>
+    <color name="platinum_20">#33EDF2F4</color>
+    <color name="punch_red_20">#33EF233C</color>
+    <color name="flag_red_20">#33D90429</color>
+
 
 
     <!--    <color name="olive_leaf">#606C38</color>-->

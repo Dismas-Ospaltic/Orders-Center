@@ -41,68 +41,95 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(navController: NavController) {
     val backgroundColor = colorResource(id = R.color.punch_red)
     StatusBarColor(backgroundColor)
-//
-//    val generalOrderViewModel: GeneralOrderViewModel = koinViewModel()
-//    val individualOrderViewModel: IndividualOrderViewModel = koinViewModel()
-//    val genOrder by generalOrderViewModel.genOrder.collectAsState(initial = emptyList())
-//      val todayDate: String = standardizedDateFormat(System.currentTimeMillis())
-
-
-//    val allOrderCount by generalOrderViewModel.allOrderCount.collectAsState()
-//val totalUnpaidOrderCount by generalOrderViewModel.totalUnpaidOrderCount.collectAsState()
-//     val totalPaidOrderCount by generalOrderViewModel.totalPaidOrderCount.collectAsState()
-//    val totalAmountAllOrder by generalOrderViewModel.totalAmountAllOrder.collectAsState()
-//    val totalAmountAllOrderToday by generalOrderViewModel.totalAmountAllOrderToday.collectAsState()
-//
-//
-//    LaunchedEffect(Unit) {
-//        generalOrderViewModel.getAllUnpaidOrderCount(todayDate)
-//        generalOrderViewModel.getAllPaidOrderCount(todayDate)
-//        generalOrderViewModel.getTodayTotalOrders(todayDate)
-//    }
 
     Scaffold(
+//        topBar = {
+//            TopAppBar(
+//                title = {
+//                        Text("Orders Center", color = Color.White)
+//
+//                },
+//                actions = {
+//
+//                    Button(
+//                        onClick = {
+//
+//                        },
+//                        shape = RoundedCornerShape(10.dp),
+//                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id=R.color.space_indigo))
+//                    ) {
+////                        Text("Today's Orders", color = Color.White)
+//
+//
+//                        Row(
+//                            verticalAlignment = Alignment.CenterVertically,
+//                            horizontalArrangement = Arrangement.spacedBy(3.dp),
+//                            modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp)
+//                        ) {
+//                            Icon(
+//                                imageVector = FontAwesomeIcons.Solid.ClipboardList,
+//                                contentDescription = "Today's Orders",
+//                                tint = colorResource(id=R.color.white),
+//                                modifier = Modifier.size(20.dp)
+//                            )
+//                            Text(
+//                                text = "Today's Orders",
+//                                color = colorResource(id=R.color.white),
+//                                fontSize = 16.sp
+//                            )
+//                        }
+//                    }
+//
+//                },
+//                colors = TopAppBarDefaults.topAppBarColors(
+//                    containerColor = backgroundColor, // dark green
+//                    titleContentColor = Color.White,
+//                    navigationIconContentColor = Color.White
+//                )
+//            )
+//        }
         topBar = {
             TopAppBar(
                 title = {
-
-                        Text("Home", color = Color.White)
-
+                    Text(
+                        text = "Orders Center",
+                        color = Color.White
+                    )
                 },
                 actions = {
-
                     Button(
-                        onClick = {
-
-                        },
-                        shape = RoundedCornerShape(10.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id=R.color.space_indigo))
+                        onClick = { /* TODO */ },
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(id = R.color.space_indigo)
+                        ),
+                        contentPadding = PaddingValues(
+                            horizontal = 12.dp,
+                            vertical = 6.dp
+                        ),
+                        modifier = Modifier
+                            .height(36.dp) // 🔹 fits TopAppBar perfectly
                     ) {
-//                        Text("Today's Orders", color = Color.White)
-
-
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(3.dp),
-                            modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp)
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             Icon(
                                 imageVector = FontAwesomeIcons.Solid.ClipboardList,
                                 contentDescription = "Today's Orders",
-                                tint = colorResource(id=R.color.white),
-                                modifier = Modifier.size(20.dp)
+                                tint = Color.White,
+                                modifier = Modifier.size(18.dp)
                             )
                             Text(
                                 text = "Today's Orders",
-                                color = colorResource(id=R.color.white),
-                                fontSize = 16.sp
+                                color = Color.White,
+                                style = MaterialTheme.typography.labelLarge
                             )
                         }
                     }
-
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = backgroundColor, // dark green
+                    containerColor = backgroundColor,
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White
                 )
@@ -199,78 +226,5 @@ fun StatItem(
 
 
 
-///buttons for navigations
-//@Composable
-//fun ActionOutlinedButton(
-//    text: String,
-//    icon: ImageVector,
-//    modifier: Modifier = Modifier,
-//    onClick: () -> Unit
-//) {
-//    OutlinedButton(
-//        onClick = onClick,
-//        modifier = modifier.height(100.dp),
-//        colors = ButtonDefaults.outlinedButtonColors(
-//            containerColor = Color.Transparent
-//        )
-//    ) {
-//        Column(
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//            Icon(
-//                imageVector = icon,
-//                contentDescription = text,
-//                modifier = Modifier.size(28.dp)
-//            )
-//            Spacer(modifier = Modifier.height(8.dp))
-//            Text(
-//                text = text,
-//                fontSize = 12.sp
-//            )
-//        }
-//    }
-//}
 
-//@Composable
-//fun ActionOutlinedButton(
-//    text: String,
-//    icon: ImageVector,
-//    modifier: Modifier = Modifier,
-//    onClick: () -> Unit
-//) {
-//
-//    val borderColor = colorResource(id = R.color.punch_red)
-//    val contentColor = colorResource(id = R.color.space_indigo)
-//
-//    OutlinedButton(
-//        onClick = onClick,
-//        modifier = modifier.height(100.dp),
-//        colors = ButtonDefaults.outlinedButtonColors(
-//            containerColor = Color.Transparent,
-//            contentColor = contentColor
-//        ),
-//        border = BorderStroke(1.dp, borderColor)
-//    ) {
-//        Column(
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//            Icon(
-//                imageVector = icon,
-//                contentDescription = text,
-//                tint = contentColor,
-//                modifier = Modifier.size(28.dp)
-//            )
-//
-//            Spacer(modifier = Modifier.height(8.dp))
-//
-//            Text(
-//                text = text,
-//                fontSize = 12.sp,
-//                color = contentColor
-//            )
-//        }
-//    }
-//}
 

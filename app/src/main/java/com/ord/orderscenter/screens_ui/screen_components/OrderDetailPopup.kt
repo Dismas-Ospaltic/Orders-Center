@@ -72,21 +72,17 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderDetailPopup(
-//    navController: NavController,
     onDismiss: () -> Unit,
     orderNumber: String,
     status: String
 ) {
 
-//    val backgroundColor = colorResource(id = R.color.coral)
+
 
     val context = LocalContext.current
 
     var showDeleteDialog by remember { mutableStateOf(false) }
-    var showReturnDialog by remember { mutableStateOf(false) }
-    var showReturnActionDialog by remember { mutableStateOf(false)}
-    var showSupplierDetDialog by remember { mutableStateOf(false) }
-    var showReturnReasonDialog by remember { mutableStateOf(false) }
+
 
     val generalOrderViewModel: GeneralOrderViewModel = koinViewModel()
     val individualOrderViewModel: IndividualOrderViewModel = koinViewModel()
@@ -100,15 +96,6 @@ fun OrderDetailPopup(
         individualOrderViewModel.getAllListItemOrders(orderNumber)
     }
 
-
-//    val supplierViewModel: SupplierViewModel = koinViewModel()
-//    val supplierList by supplierViewModel.suppliers.collectAsState(initial = emptyList())
-//    val stockViewmodel: StockViewModel = koinViewModel()
-//    val stockUpdates by stockViewmodel.stockList.collectAsState(initial = emptyList())
-//    val returnViewModel: ReturnViewModel = koinViewModel()
-//
-//    val currentDate =  System.currentTimeMillis()
-//    val todayDate = standardDateFormat(currentDate)
 
 
     Dialog(onDismissRequest = { onDismiss() }) {
@@ -130,52 +117,6 @@ fun OrderDetailPopup(
             ) {
                 Text(text = "Order Details", fontWeight = FontWeight.Bold, fontSize = 18.sp)
 
-
-//                if(orderItems.isEmpty()){
-//                    Text("No items for this Order")
-//                }else{
-//                    for (index in  orderItems.indices) {
-//                        val productItem =  orderItems[index]
-//
-//                        Card(
-//                            modifier = Modifier.fillMaxWidth(),
-//                            shape = RoundedCornerShape(12.dp),
-//                            colors = CardDefaults.cardColors(containerColor = Color(0xFFF9F9F9)),
-//                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-//                        ) {
-//                            Row(
-//                                modifier = Modifier
-//                                    .fillMaxWidth()
-//                                    .padding(12.dp),
-//                                horizontalArrangement = Arrangement.SpaceBetween
-//                            ) {
-//                                Text(productItem.itemName, fontWeight = FontWeight.SemiBold)
-//                                Text("Qty: ${productItem.quantity}")
-//                                Text("Price: ${productItem.price}")
-//                                Text("total: ${productItem.price * productItem.quantity}")
-//                            }
-//                            //to delete single order item
-//                            IconButton(
-//                                onClick = {
-//                                    showDeleteDialog= true
-//
-//                                },
-//                                modifier = Modifier
-//                                    .size(36.dp)
-//                                    .background(Color.Red.copy(alpha = 0.85f), CircleShape)
-//                            ) {
-//                                Icon(
-//                                    imageVector = FontAwesomeIcons.Solid.Trash,
-//                                    contentDescription = "Delete",
-//                                    tint = Color.White,
-//                                    modifier = Modifier.size(16.dp)
-//                                )
-//                            }
-//                        }
-//                    }
-//
-//
-//                }
 
                 if (orderItems.isEmpty()) {
                     Box(
@@ -226,22 +167,22 @@ fun OrderDetailPopup(
                                         overflow = TextOverflow.Ellipsis
                                     )
 
-                                    IconButton(
-                                        onClick = { showDeleteDialog = true },
-                                        modifier = Modifier
-                                            .size(34.dp)
-                                            .background(
-                                                color = Color.Red.copy(alpha = 0.85f),
-                                                shape = CircleShape
-                                            )
-                                    ) {
-                                        Icon(
-                                            imageVector = FontAwesomeIcons.Solid.Trash,
-                                            contentDescription = "Delete",
-                                            tint = Color.White,
-                                            modifier = Modifier.size(16.dp)
-                                        )
-                                    }
+//                                    IconButton(
+//                                        onClick = { showDeleteDialog = true },
+//                                        modifier = Modifier
+//                                            .size(34.dp)
+//                                            .background(
+//                                                color = Color.Red.copy(alpha = 0.85f),
+//                                                shape = CircleShape
+//                                            )
+//                                    ) {
+//                                        Icon(
+//                                            imageVector = FontAwesomeIcons.Solid.Trash,
+//                                            contentDescription = "Delete",
+//                                            tint = Color.White,
+//                                            modifier = Modifier.size(16.dp)
+//                                        )
+//                                    }
                                 }
 
                                 Spacer(modifier = Modifier.height(8.dp))
@@ -308,8 +249,6 @@ fun OrderDetailPopup(
             text = { Text("Do you Want to permanently delete from the list?") },
             confirmButton = {
                 TextButton(onClick = {
-
-//                    stockViewmodel.deleteStock(stockId)
                     Toast.makeText(context, "Item Order has been deleted", Toast.LENGTH_SHORT).show()
                     showDeleteDialog = false
                     onDismiss()
@@ -327,35 +266,6 @@ fun OrderDetailPopup(
             }
         )
     }
-
-
-
-//    if (showReturnActionDialog) {
-//        ReturnStockPop(
-//            onDismiss = {  showReturnActionDialog = false ;
-//                onDismiss()},
-//            stockId = stockId
-//        )
-//    }
-//
-//    if (showSupplierDetDialog) {
-//        SupplierDetailPop(
-//            onDismiss = {  showSupplierDetDialog = false ;
-//                onDismiss()},
-//            supplierId = supplierId
-//        )
-//
-//    }
-//
-//    if (showReturnReasonDialog) {
-//        ReturnReasonPop(
-//            onDismiss = {  showReturnReasonDialog = false ;
-//                onDismiss()},
-//            stockId = stockId
-//        )
-//
-//    }
-
 
 
 
