@@ -38,6 +38,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ord.orderscenter.model.GeneralOrdersEntity
 import com.ord.orderscenter.navgraph.Screen
+import com.ord.orderscenter.screens_ui.screen_components.ActionPopup
 import com.ord.orderscenter.utils.StatusBarColor
 import com.ord.orderscenter.viewmodel.GeneralOrderViewModel
 import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
@@ -205,7 +206,7 @@ fun AllOrdersScreen(navController: NavController) {
 
                     else -> {
                         paginatedOrders.forEach { order ->
-                            OrderCard(order)
+                            OrderCard(order,navController)
                         }
 
                         Spacer(modifier = Modifier.height(16.dp))
@@ -416,8 +417,12 @@ private fun PaginationAction(
 
 
 @Composable
-fun OrderCard(order: GeneralOrdersEntity) {
+fun OrderCard(order: GeneralOrdersEntity, navController: NavController) {
 
+
+    var selectedOrderNumber by remember { mutableStateOf<String?>(null) }
+    var showActionPopUp by remember { mutableStateOf(false) }
+    var selectedStatus by remember { mutableStateOf<String?>(null) }
     val statusColor = when (order.status.lowercase()) {
         "paid" -> Color(0xFF4CAF50)
         "unpaid" -> Color(0xFFE53935)
@@ -427,7 +432,12 @@ fun OrderCard(order: GeneralOrdersEntity) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp),
+            .padding(vertical = 6.dp)
+            .clickable {
+                selectedOrderNumber = order.orderNumber.toString()
+                showActionPopUp=true
+                selectedStatus = order.status
+            },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(6.dp)
     ) {
@@ -474,6 +484,17 @@ fun OrderCard(order: GeneralOrdersEntity) {
                 }
             }
         }
+    }
+
+
+    if (showActionPopUp) {
+        ActionPopup(
+            navController,
+            onDismiss = {  showActionPopUp = false },
+            orderNumber = selectedOrderNumber.toString(),
+            status = selectedStatus.toString()
+        )
+
     }
 }
 
