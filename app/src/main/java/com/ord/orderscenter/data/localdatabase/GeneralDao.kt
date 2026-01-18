@@ -24,6 +24,18 @@ interface GeneralDao {
     @Query("SELECT * FROM general_orders ORDER BY timestamp DESC")
     fun getAllGenOrders(): Flow<List<GeneralOrdersEntity>>
 
+    @Query("SELECT * FROM general_orders WHERE date=:dateToday ORDER BY timestamp DESC")
+    fun getAllGenOrdersToday(dateToday: String): Flow<List<GeneralOrdersEntity>>
+
+
+    @Query("SELECT * FROM general_orders WHERE status = 'unpaid' ORDER BY timestamp DESC")
+    fun getAllGenOrdersUnpaid(): Flow<List<GeneralOrdersEntity>>
+
+
+
+    @Query("SELECT * FROM general_orders WHERE status = 'paid' ORDER BY timestamp DESC")
+    fun getAllGenOrdersPaid(): Flow<List<GeneralOrdersEntity>>
+
     // 🔹 Delete an order by unique ID
     @Query("DELETE FROM general_orders WHERE orderNumber = :orderNumber")
     suspend fun deleteOrderByNumber(orderNumber: String): Int

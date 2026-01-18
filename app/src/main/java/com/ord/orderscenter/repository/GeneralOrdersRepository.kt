@@ -13,6 +13,11 @@ class GeneralOrdersRepository(private val generalDao: GeneralDao) {
     // 🔹 Get all gen Order (Flow for real-time UI updates)
     fun getAllGenOrders(): Flow<List<GeneralOrdersEntity>> = generalDao.getAllGenOrders()
 
+
+    fun getAllGenOrdersPaid(): Flow<List<GeneralOrdersEntity>> = generalDao.getAllGenOrdersPaid()
+    fun getAllGenOrdersUnpaid(): Flow<List<GeneralOrdersEntity>> = generalDao.getAllGenOrdersUnpaid()
+    fun getAllGenOrdersToday(dateToday: String): Flow<List<GeneralOrdersEntity>> = generalDao.getAllGenOrdersToday(dateToday)
+
     // 🔹 Insert new order
     suspend fun insertGenOrder(genOrder: GeneralOrdersEntity) = generalDao.insertGenOrder(genOrder)
 

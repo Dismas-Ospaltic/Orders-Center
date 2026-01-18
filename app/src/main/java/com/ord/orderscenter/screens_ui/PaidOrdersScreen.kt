@@ -61,19 +61,19 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AllOrdersScreen(navController: NavController) {
+fun PaidOrdersScreen(navController: NavController) {
 
     val backgroundColor = colorResource(id = R.color.punch_red)
     StatusBarColor(backgroundColor)
 
     val generalOrderViewModel: GeneralOrderViewModel = koinViewModel()
     val individualOrderViewModel: IndividualOrderViewModel = koinViewModel()
-    val genOrder by generalOrderViewModel.genOrder.collectAsState(initial = emptyList())
+    val genOrderPaid by generalOrderViewModel.genOrderPaid.collectAsState(initial = emptyList())
 
 
 
 //    val allOrders = remember { mockOrders() }
-    val allOrders = genOrder
+    val allOrders = genOrderPaid
 
     var searchQuery by remember { mutableStateOf("") }
     var currentPage by remember { mutableStateOf(1) }
@@ -107,7 +107,7 @@ fun AllOrdersScreen(navController: NavController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("All Orders", color = Color.White) },
+                title = { Text("Paid Orders", color = Color.White) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
@@ -178,9 +178,9 @@ fun AllOrdersScreen(navController: NavController) {
                     singleLine = true
                 )
 
-            Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-            // 🧱 ORDER CARDS
+                // 🧱 ORDER CARDS
 //            paginatedOrders.forEach { order ->
 //                OrderCard(order)
 //            }
@@ -219,259 +219,6 @@ fun AllOrdersScreen(navController: NavController) {
                 }
 
             }
-    }
-    }
-}
-
-
-@Composable
-fun PaginationBar(
-    currentPage: Int,
-    totalPages: Int,
-    onPageChange: (Int) -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 12.dp)
-            .horizontalScroll(rememberScrollState())
-            .background(
-                color = Color(0xFFF4F4F4),
-                shape = RoundedCornerShape(32.dp)
-            )
-            .padding(horizontal = 12.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        // ◀ Previous
-        PaginationAction(
-            text = "‹",
-            enabled = currentPage > 1
-        ) { onPageChange(currentPage - 1) }
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        val visiblePages = buildList {
-            add(1)
-
-            if (currentPage > 4) add(-1) // ellipsis
-
-            for (page in (currentPage - 2)..(currentPage + 2)) {
-                if (page in 2 until totalPages) add(page)
-            }
-
-            if (currentPage < totalPages - 3) add(-1)
-
-            if (totalPages > 1) add(totalPages)
-        }.distinct()
-
-        visiblePages.forEach { page ->
-            when (page) {
-                -1 -> {
-                    Text(
-                        text = "…",
-                        modifier = Modifier.padding(horizontal = 6.dp),
-                        color = Color.Gray,
-                        fontSize = 16.sp
-                    )
-                }
-                else -> {
-                    PageButton(
-                        page = page,
-                        isActive = page == currentPage,
-                        onClick = { onPageChange(page) }
-                    )
-                }
-            }
-        }
-
-//        Spacer(modifier = Modifier.width(8.dp))
-
-        // ▶ Next
-        PaginationAction(
-            text = "›",
-            enabled = currentPage < totalPages
-        ) { onPageChange(currentPage + 1) }
-    }
-}
-
-@Composable
-private fun PageButton(
-    page: Int,
-    isActive: Boolean,
-    onClick: () -> Unit
-) {
-    TextButton(
-        onClick = onClick,
-        modifier = Modifier
-            .padding(horizontal = 2.dp)
-            .background(
-                if (isActive) colorResource(id = R.color.punch_red)
-                else Color.Transparent,
-                RoundedCornerShape(50)
-            ),
-        colors = ButtonDefaults.textButtonColors(
-            contentColor = if (isActive) Color.White else Color.Black
-        )
-    ) {
-        Text(
-            text = page.toString(),
-            fontWeight = if (isActive) FontWeight.Bold else FontWeight.Normal
-        )
-    }
-}
-
-
-@Composable
-private fun PaginationAction(
-    text: String,
-    enabled: Boolean,
-    onClick: () -> Unit
-) {
-    TextButton(
-        onClick = onClick,
-        enabled = enabled,
-        shape = RoundedCornerShape(50)
-    ) {
-        Text(
-            text = text,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
-
-
-
-@Composable
-fun OrderCard(order: GeneralOrdersEntity, navController: NavController) {
-
-
-    var selectedOrderNumber by remember { mutableStateOf<String?>(null) }
-    var showActionPopUp by remember { mutableStateOf(false) }
-    var selectedStatus by remember { mutableStateOf<String?>(null) }
-    var selectedTotal by remember { mutableStateOf<Float?>(null) }
-    var selectedCustomerName by remember { mutableStateOf<String?>(null) }
-    var selectedPhone by remember { mutableStateOf<String?>(null) }
-    var selectedAddress by remember { mutableStateOf<String?>(null) }
-
-
-    val statusColor = when (order.status.lowercase()) {
-        "paid" -> Color(0xFF4CAF50)
-        "unpaid" -> Color(0xFFE53935)
-        else -> Color.Gray
-    }
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp)
-            .clickable {
-                selectedOrderNumber = order.orderNumber.toString()
-                showActionPopUp = true
-                selectedStatus = order.status
-                selectedTotal = order.totalOrder.toFloat()
-                selectedCustomerName = order.customerName
-                selectedPhone = order.phone
-                selectedAddress = order.addressDescription
-            },
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(6.dp)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(order.orderNumber, fontWeight = FontWeight.Bold)
-
-                Box(
-                    modifier = Modifier
-                        .background(statusColor, RoundedCornerShape(20.dp))
-                        .padding(horizontal = 12.dp, vertical = 4.dp)
-                ) {
-                    Text(
-                        order.status.uppercase(),
-                        color = Color.White,
-                        fontSize = 12.sp
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(6.dp))
-
-            Text("Customer Name:${order.customerName}", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-            Text("Phone: ${order.phone}", fontSize = 13.sp, color = Color.Gray)
-            if(order.addressDescription!!.isNotEmpty()){
-                Text("address description: ${order.addressDescription}", fontSize = 13.sp, color = Color.Gray)
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column {
-                    Text("Total", fontSize = 12.sp, color = Color.Gray)
-                    Text("${order.totalOrder}", fontWeight = FontWeight.Bold)
-                }
-
-                Column(horizontalAlignment = Alignment.End) {
-                    Text("Date", fontSize = 12.sp, color = Color.Gray)
-                    Text(order.date, fontWeight = FontWeight.Medium)
-                }
-            }
         }
     }
-
-
-    if (showActionPopUp) {
-        ActionPopup(
-            navController,
-            onDismiss = { showActionPopUp = false },
-            orderNumber = selectedOrderNumber.toString(),
-            status = selectedStatus.toString(),
-            total = selectedTotal?.toFloat() ?: 0.0f,
-            selectedCustomerName.toString(),
-            selectedPhone.toString(),
-            selectedAddress.toString()
-        )
-
-    }
-
-
-
-
 }
-
-
-
-
-
-@Composable
-fun EmptyState(
-    message: String
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 80.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = message,
-            color = Color.Gray,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium
-        )
-    }
-}
-
-
-
-
-
-
-

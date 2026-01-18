@@ -7,6 +7,7 @@ import com.ord.orderscenter.model.GeneralOrdersEntity
 import com.ord.orderscenter.model.IndividualItemEntity
 import com.ord.orderscenter.repository.GeneralOrdersRepository
 import com.ord.orderscenter.repository.IndividualItemRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,6 +19,16 @@ class GeneralOrderViewModel(private val generalOrdersRepository: GeneralOrdersRe
     private val _genOrder = MutableStateFlow<List<GeneralOrdersEntity>>(emptyList())
     val genOrder: StateFlow<List<GeneralOrdersEntity>> = _genOrder
 
+    private val _genOrderToday = MutableStateFlow<List<GeneralOrdersEntity>>(emptyList())
+    val genOrderToday: StateFlow<List<GeneralOrdersEntity>> = _genOrderToday
+
+    private val _genOrderPaid = MutableStateFlow<List<GeneralOrdersEntity>>(emptyList())
+    val genOrderPaid: StateFlow<List<GeneralOrdersEntity>> = _genOrderPaid
+
+    private val _genOrderUnpaid = MutableStateFlow<List<GeneralOrdersEntity>>(emptyList())
+    val genOrderUnpaid: StateFlow<List<GeneralOrdersEntity>> = _genOrderUnpaid
+
+
 
 //    private val _updateResult = MutableStateFlow<Boolean?>(null)
 //    val updateResult: StateFlow<Boolean?> = _updateResult
@@ -27,6 +38,8 @@ class GeneralOrderViewModel(private val generalOrdersRepository: GeneralOrdersRe
         getAllGenOrders()
         getAllGenOrderCount()
         getTotalOrders()
+        getAllGenOrdersUnpaid()
+        getAllGenOrdersPaid()
     }
 
     // ✅ Get all orders general
@@ -37,6 +50,38 @@ class GeneralOrderViewModel(private val generalOrdersRepository: GeneralOrdersRe
             }
         }
     }
+
+
+
+    private fun getAllGenOrdersPaid() {
+        viewModelScope.launch {
+            generalOrdersRepository.getAllGenOrdersPaid().collectLatest { list ->
+                _genOrderPaid.value = list
+            }
+        }
+    }
+
+
+    private fun getAllGenOrdersUnpaid() {
+        viewModelScope.launch {
+            generalOrdersRepository.getAllGenOrdersUnpaid().collectLatest { list ->
+                _genOrderUnpaid.value = list
+            }
+        }
+    }
+
+
+    fun getAllGenOrdersToday(dateToday: String) {
+        viewModelScope.launch {
+            generalOrdersRepository.getAllGenOrdersToday(dateToday).collectLatest { list ->
+                _genOrderToday.value = list
+            }
+        }
+    }
+
+
+
+
 
     // ✅ Insert new order
     fun insertGenOrder(genOrder: GeneralOrdersEntity) {

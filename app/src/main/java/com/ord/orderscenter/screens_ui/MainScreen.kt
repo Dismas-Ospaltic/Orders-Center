@@ -98,7 +98,10 @@ fun MainScreen(navController: NavController) {
                 },
                 actions = {
                     Button(
-                        onClick = { /* TODO */ },
+                        onClick = {
+                            val todayDate = standardizedDateFormat(System.currentTimeMillis())
+                            navController.navigate("today_orders/$todayDate")
+                        },
                         shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = colorResource(id = R.color.space_indigo)
@@ -171,8 +174,11 @@ fun MainScreen(navController: NavController) {
                     onAllOrders = { /* navigate */
                         navController.navigate(Screen.AllOrders.route)
                     },
-                    onViewPaid = { /* navigate */ },
-                    onViewUnpaid = { /* navigate */ },
+                    onViewPaid = { /* navigate */
+                        navController.navigate(Screen.PaidOrders.route)
+                    },
+                    onViewUnpaid = { /* navigate */
+                        navController.navigate(Screen.UnpaidOrders.route)},
                     onSettings = { navController.navigate(Screen.Settings.route) }
                 )
 
