@@ -100,7 +100,8 @@ fun MainScreen(navController: NavController) {
                     Button(
                         onClick = {
                             val todayDate = standardizedDateFormat(System.currentTimeMillis())
-                            navController.navigate("today_orders/$todayDate")
+                            navController.navigate("todayOrder/$todayDate")
+
                         },
                         shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.buttonColors(

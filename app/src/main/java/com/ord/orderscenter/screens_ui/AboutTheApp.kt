@@ -1,5 +1,8 @@
 package com.ord.orderscenter.screens_ui
 
+//
+package com.ord.orderscenter.screens_ui
+
 import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -80,7 +83,7 @@ fun SettingScreen(navController: NavController) {
             )
         },
 
-    ) { paddingValues ->
+        ) { paddingValues ->
         // Scrollable content
         Column(
             modifier = Modifier
