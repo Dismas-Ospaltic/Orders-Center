@@ -62,7 +62,7 @@ interface GeneralDao {
     suspend fun getAllGenOrderCount(): Int
 
     @Query("SELECT COUNT(*) FROM general_orders WHERE status = 'unpaid' AND date =:date")
-    suspend fun getAllUnpaidOrderCount(date: String): Flow<Int?>
+     fun getAllUnpaidOrderCount(date: String): Flow<Int?>
 
     @Query("SELECT COUNT(*) FROM general_orders WHERE status = 'paid' AND date =:date")
     fun getAllPaidOrderCount(date: String): Flow<Int?>

@@ -27,9 +27,13 @@ import com.ord.orderscenter.navgraph.Screen
 import com.ord.orderscenter.screens_ui.screen_components.ActionButtonsBox
 import com.ord.orderscenter.screens_ui.screen_components.StatsBox
 import com.ord.orderscenter.utils.StatusBarColor
+import com.ord.orderscenter.utils.standardizedDateFormat
+import com.ord.orderscenter.viewmodel.GeneralOrderViewModel
+import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ClipboardList
+import org.koin.androidx.compose.koinViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,7 +41,25 @@ import compose.icons.fontawesomeicons.solid.ClipboardList
 fun MainScreen(navController: NavController) {
     val backgroundColor = colorResource(id = R.color.punch_red)
     StatusBarColor(backgroundColor)
+//
+//    val generalOrderViewModel: GeneralOrderViewModel = koinViewModel()
+//    val individualOrderViewModel: IndividualOrderViewModel = koinViewModel()
+//    val genOrder by generalOrderViewModel.genOrder.collectAsState(initial = emptyList())
+//      val todayDate: String = standardizedDateFormat(System.currentTimeMillis())
 
+
+//    val allOrderCount by generalOrderViewModel.allOrderCount.collectAsState()
+//val totalUnpaidOrderCount by generalOrderViewModel.totalUnpaidOrderCount.collectAsState()
+//     val totalPaidOrderCount by generalOrderViewModel.totalPaidOrderCount.collectAsState()
+//    val totalAmountAllOrder by generalOrderViewModel.totalAmountAllOrder.collectAsState()
+//    val totalAmountAllOrderToday by generalOrderViewModel.totalAmountAllOrderToday.collectAsState()
+//
+//
+//    LaunchedEffect(Unit) {
+//        generalOrderViewModel.getAllUnpaidOrderCount(todayDate)
+//        generalOrderViewModel.getAllPaidOrderCount(todayDate)
+//        generalOrderViewModel.getTodayTotalOrders(todayDate)
+//    }
 
     Scaffold(
         topBar = {
@@ -48,21 +70,6 @@ fun MainScreen(navController: NavController) {
 
                 },
                 actions = {
-
-
-//                        IconButton(onClick = {
-//                            navController.navigate(Screen.Settings.route)
-//                        }) {
-//                            Icon(
-//                                imageVector = FontAwesomeIcons.Solid.Cog,
-//                                contentDescription = "settings",
-//                                tint = Color.White,
-//                                modifier = Modifier.size(24.dp)
-//                            )
-//                        }
-
-
-
 
                     Button(
                         onClick = {

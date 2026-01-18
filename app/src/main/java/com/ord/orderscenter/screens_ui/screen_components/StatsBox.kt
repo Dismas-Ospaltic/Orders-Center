@@ -8,23 +8,49 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ord.orderscenter.screens_ui.StatItem
+import com.ord.orderscenter.utils.standardizedDateFormat
+import com.ord.orderscenter.viewmodel.GeneralOrderViewModel
+import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun StatsBox() {
+    val generalOrderViewModel: GeneralOrderViewModel = koinViewModel()
+    val individualOrderViewModel: IndividualOrderViewModel = koinViewModel()
+    val genOrder by generalOrderViewModel.genOrder.collectAsState(initial = emptyList())
+    val todayDate: String = standardizedDateFormat(System.currentTimeMillis())
+
+
+    val allOrderCount by generalOrderViewModel.allOrderCount.collectAsState()
+    val totalUnpaidOrderCount by generalOrderViewModel.totalUnpaidOrderCount.collectAsState()
+    val totalPaidOrderCount by generalOrderViewModel.totalPaidOrderCount.collectAsState()
+    val totalAmountAllOrder by generalOrderViewModel.totalAmountAllOrder.collectAsState()
+    val totalAmountAllOrderToday by generalOrderViewModel.totalAmountAllOrderToday.collectAsState()
+
+
+    LaunchedEffect(Unit) {
+        generalOrderViewModel.getAllUnpaidOrderCount(todayDate)
+        generalOrderViewModel.getAllPaidOrderCount(todayDate)
+        generalOrderViewModel.getTodayTotalOrders(todayDate)
+    }
 
     val stats = listOf(
-        "Total Orders" to "50",
-        "Total Sales" to "100",
-        "Total Requests" to "2003",
-        "Total Amount" to "10,000",
-        "Unpaid No" to "30"
+        "Total Orders" to allOrderCount.toString(),
+        "Total Order Amount" to totalAmountAllOrder.toString(),
+        "Unpaid Orders Today" to totalUnpaidOrderCount.toString(),
+        "Paid Orders Today" to totalPaidOrderCount.toString(),
+        "Total Order Amount Today" to totalAmountAllOrderToday.toString()
     )
+
 
     Box(
         modifier = Modifier

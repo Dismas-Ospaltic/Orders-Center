@@ -603,7 +603,7 @@ fun AddOrderScreen(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("Add Item")
+                    Text("Add an Item")
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -613,11 +613,7 @@ fun AddOrderScreen(
                     onClick = {
                         showValidationErrors = true
 
-//                        val hasErrors = items.any {
-//                            it.name.isBlank() ||
-//                                    it.price.toDoubleOrNull() == null ||
-//                                    it.quantity.toIntOrNull() == null
-//                        }
+//
                         //  Ensure at least one item exists in the list
                         if (items.isEmpty()) {
                             Toast.makeText(
@@ -640,7 +636,7 @@ fun AddOrderScreen(
                         if (hasErrors) {
                             Toast.makeText(
                                 context,
-                                "Fix errors before saving",
+                                "make sure to fill all fields highlighted in red",
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
@@ -693,8 +689,7 @@ fun AddOrderScreen(
                                 )
                             )
 
-
-
+                            navController.popBackStack()
 
                             Toast.makeText(
                                 context,
