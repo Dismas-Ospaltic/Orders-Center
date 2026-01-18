@@ -1,6 +1,11 @@
 package com.ord.orderscenter.di
 
 
+import com.ord.orderscenter.data.localdatabase.OrderDatabase
+import com.ord.orderscenter.repository.GeneralOrdersRepository
+import com.ord.orderscenter.repository.IndividualItemRepository
+import com.ord.orderscenter.viewmodel.GeneralOrderViewModel
+import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 
@@ -8,17 +13,14 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 val appModule = module {
 //  Define ViewModel injection
 
-//    viewModel { NotificationViewModel() }
-//
-//
-//
-//    single { LocalNotificationPreferences(get()) }
-//    viewModel { LocalNotificationPrefsViewModel(get()) }
-//
-//    single{ AppDatabase.getDatabase(get()).itemDao() }
-//    single { ItemRepository(get()) }
-//    viewModel { ItemViewModel(get()) }
 
+    single { OrderDatabase.getDatabase(get()).generalDao() }
+     single { GeneralOrdersRepository(get()) }
+      viewModel{GeneralOrderViewModel(get())}
+
+    single { OrderDatabase.getDatabase(get()).individualDao() }
+    single { IndividualItemRepository(get()) }
+    viewModel{ IndividualOrderViewModel(get())}
 
 
 }
