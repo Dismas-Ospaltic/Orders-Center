@@ -67,7 +67,7 @@ fun ActionPopup(
     val context = LocalContext.current
 
     var showDeleteDialog by remember { mutableStateOf(false) }
-    var showReturnDialog by remember { mutableStateOf(false) }
+    var showDetailPopUp by remember { mutableStateOf(false) }
     var showReturnActionDialog by remember { mutableStateOf(false)}
     var showSupplierDetDialog by remember { mutableStateOf(false) }
     var showReturnReasonDialog by remember { mutableStateOf(false) }
@@ -106,8 +106,7 @@ fun ActionPopup(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
-
-
+                            showDetailPopUp = false
                         }
                         .padding(12.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -215,13 +214,14 @@ fun ActionPopup(
 
 
 
-//    if (showReturnActionDialog) {
-//        ReturnStockPop(
-//            onDismiss = {  showReturnActionDialog = false ;
-//                onDismiss()},
-//            stockId = stockId
-//        )
-//    }
+    if (showDetailPopUp) {
+        OrderDetailPopup(
+            onDismiss = {  showDetailPopUp = false ;
+                onDismiss()},
+            orderNumber = orderNumber,
+            status = status
+        )
+    }
 //
 //    if (showSupplierDetDialog) {
 //        SupplierDetailPop(

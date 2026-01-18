@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 class IndividualItemRepository(private val individualDao: IndividualDao) {
 
     // 🔹 Get all gen Order (Flow for real-time UI updates)
-    fun getAllGenOrders(orderNumber: String): Flow<List<IndividualItemEntity>> = individualDao.getAllGenOrders(orderNumber)
+    fun getAllListItemOrders(orderNumber: String): Flow<List<IndividualItemEntity>> = individualDao.getAllListItemOrders(orderNumber)
 
 
     suspend fun deleteSingleOrderByNumber(orderNumber: String): Boolean {

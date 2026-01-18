@@ -27,9 +27,9 @@ class IndividualOrderViewModel(private val individualItemRepository: IndividualI
     }
 
     // ✅ Get all order item
-    private fun getAllGenOrders(orderNumber: String) {
+    fun getAllListItemOrders(orderNumber: String) {
         viewModelScope.launch {
-            individualItemRepository.getAllGenOrders(orderNumber).collectLatest { list ->
+            individualItemRepository.getAllListItemOrders(orderNumber).collectLatest { list ->
                 _orderItems.value = list
             }
         }

@@ -121,7 +121,8 @@ fun AllOrdersScreen(navController: NavController) {
                         Icon(
                             imageVector = FontAwesomeIcons.Solid.AngleLeft,
                             contentDescription = "Back",
-                            tint = Color.White
+                            tint = Color.White,
+                            modifier = Modifier.size(24.dp)
                         )
                     }
                 },

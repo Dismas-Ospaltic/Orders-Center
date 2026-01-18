@@ -23,7 +23,7 @@ interface IndividualDao {
 
 
     @Query("SELECT * FROM individual_orders WHERE orderNumber =:orderNumber")
-    fun getAllGenOrders(orderNumber: String): Flow<List<IndividualItemEntity>>
+    fun getAllListItemOrders(orderNumber: String): Flow<List<IndividualItemEntity>>
 
     // 🔹 Delete an order by unique ID
     @Query("DELETE FROM individual_orders WHERE orderNumber = :orderNumber")
