@@ -468,13 +468,18 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ord.orderscenter.R
+import com.ord.orderscenter.model.GeneralOrdersEntity
+import com.ord.orderscenter.model.IndividualItemEntity
 import com.ord.orderscenter.utils.StatusBarColor
+import com.ord.orderscenter.viewmodel.GeneralOrderViewModel
+import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
 //import com.ord.orderscenter.screens_ui.outlinedFieldColors
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.AngleLeft
 import compose.icons.fontawesomeicons.solid.Plus
 import compose.icons.fontawesomeicons.solid.Trash
+import org.koin.androidx.compose.koinViewModel
 
 // ----------------------------------------------------
 // DATA MODEL
@@ -503,7 +508,8 @@ fun AddOrderScreen(
     var customerName by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var addressDesc by remember { mutableStateOf("") }
-
+    val generalOrderViewModel: GeneralOrderViewModel = koinViewModel()
+    val individualOrderViewModel: IndividualOrderViewModel = koinViewModel()
 
 
 
@@ -638,6 +644,58 @@ fun AddOrderScreen(
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
+
+
+//                            items.forEachIndexed { _, item ->
+//                                individualOrderViewModel.insertIndividualOrder(
+//                                    IndividualItemEntity(
+//                                        itemName = item.name,
+//                                        price = item.price.toFloat(),
+//                                        quantity = item.quantity.toInt(),
+//                                        qtyDescription = item.quantity.toString(),
+//                                        orderNumber = orderNumber,
+//                                        itemId = generateItemId(orderNumber, index)
+//                                    )
+//                                )
+//
+//                            }
+
+                            val orderNumber = generateOrderNumber()
+
+// Calculate totalOrder while inserting items
+                            var totalOrder = 0f
+
+                            items.forEachIndexed { index, item ->
+                                val itemTotal = item.price.toFloat() * item.quantity.toInt()
+                                totalOrder += itemTotal
+
+                                individualOrderViewModel.insertIndividualOrder(
+                                    IndividualItemEntity(
+                                        itemName = item.name,
+                                        price = item.price.toFloat(),
+                                        quantity = item.quantity.toInt(),
+                                        qtyDescription = item.quantity.toString(),
+                                        orderNumber = orderNumber,
+                                        itemId = generateItemId(orderNumber, index)
+                                    )
+                                )
+                            }
+
+
+                            // Insert general order with the total calculated
+                            generalOrderViewModel.insertGenOrder(
+                                GeneralOrdersEntity(
+                                    customerName = customerName,
+                                    phone = phone,
+                                    addressDescription = addressDesc,
+                                    totalOrder = totalOrder,
+                                    orderNumber = orderNumber
+                                )
+                            )
+
+
+
+
                             Toast.makeText(
                                 context,
                                 "Order saved successfully",
@@ -804,8 +862,30 @@ fun AddOrderScreen(
                 label = { Text("Address / Description") },
                 modifier = Modifier.fillMaxWidth()
             )
+
+
+
         }
     }
+
+//Order Number Generator
+fun generateOrderNumber(): String {
+    val randomPart = (100..999).random()
+    val timePart = System.currentTimeMillis()
+    return "ORD-$randomPart-$timePart"
+}
+
+
+//Item ID Generator (per item)
+fun generateItemId(
+    orderNumber: String,
+    index: Int
+): String {
+    val randomPart = (10..99).random()
+    val timePart = System.currentTimeMillis()
+    return "ITEM-$orderNumber-$randomPart-$index-$timePart"
+}
+
 
 
 
