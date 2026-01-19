@@ -1,6 +1,5 @@
 package com.ord.orderscenter.screens_ui.screen_components
 
-//
 
 
 
@@ -55,18 +54,6 @@ import androidx.navigation.NavController
 import com.ord.orderscenter.R
 import com.ord.orderscenter.viewmodel.GeneralOrderViewModel
 import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Regular
-import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.regular.Edit
-import compose.icons.fontawesomeicons.regular.TrashAlt
-import compose.icons.fontawesomeicons.solid.CheckCircle
-import compose.icons.fontawesomeicons.solid.ClipboardList
-import compose.icons.fontawesomeicons.solid.Edit
-import compose.icons.fontawesomeicons.solid.InfoCircle
-import compose.icons.fontawesomeicons.solid.Trash
-import compose.icons.fontawesomeicons.solid.Truck
-import compose.icons.fontawesomeicons.solid.TruckLoading
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

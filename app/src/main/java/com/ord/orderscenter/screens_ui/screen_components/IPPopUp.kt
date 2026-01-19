@@ -1,7 +1,11 @@
 package com.ord.orderscenter.screens_ui.screen_components
 
 
+
+
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +22,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -31,6 +37,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -40,38 +47,19 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.ord.orderscenter.R
-import com.ord.orderscenter.screens_ui.CustomerInfoSection
-import com.ord.orderscenter.screens_ui.NamePriceItem
-import com.ord.orderscenter.utils.StatusBarColor
-import com.ord.orderscenter.viewmodel.GeneralOrderViewModel
-import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
 
-import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditCustomerInfoPop(
+fun IPPopUp(
 //    navController: NavController,
     onDismiss: () -> Unit,
-    orderNumber: String,
-    status: String,
-    total: Float,
-    customerName: String,
-    phone: String,
-    address: String
 ) {
 
     val backgroundColor = colorResource(id = R.color.punch_red)
-    StatusBarColor(backgroundColor)
-    val context = LocalContext.current
-    var showValidationErrors by remember { mutableStateOf(false) }
 
-    var customerName by remember { mutableStateOf(customerName) }
-    var phone by remember { mutableStateOf(phone) }
-    var addressDesc by remember { mutableStateOf(address) }
-    val generalOrderViewModel: GeneralOrderViewModel = koinViewModel()
-    val individualOrderViewModel: IndividualOrderViewModel = koinViewModel()
-    val genOrder by generalOrderViewModel.genOrder.collectAsState(initial = emptyList())
+    val context = LocalContext.current
+
 
 
 
@@ -92,23 +80,36 @@ fun EditCustomerInfoPop(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
 
             ) {
-                Text(text = "Edit Customer Info", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Text(text = "Intellectual Property Notice", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Spacer(modifier = Modifier.height(12.dp))
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                    ,
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    border = BorderStroke(1.dp, colorResource(id = R.color.punch_red)),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                ) {
 
+                    Column(modifier = Modifier.padding(16.dp)) {
 
-                Spacer(modifier = Modifier.height(24.dp))
+                        Text(
+                            text = """
+                            
+Third-party assets (e.g icons) used in this app belong to their respective owners and are utilized in accordance with their free-to-use licenses.
 
-                CustomerInfoSection(
-                    customerName = customerName,
-                    phone = phone,
-                    addressDesc = addressDesc,
-                    showErrors = showValidationErrors,
-                    onNameChange = { customerName = it },
-                    onPhoneChange = { phone = it },
-                    onAddressChange = { addressDesc = it }
-                )
+The developer of this app does not claim ownership of any third-party assets used within the application. All trademarks, logos, and brand names appearing in this app are the property of their respective owners.
 
-                Spacer(modifier = Modifier.height(24.dp))
+The app developer makes no ownership claims and fully respects and acknowledges all intellectual property rights.
 
+                                    """.trimIndent(),
+                            fontSize = 14.sp,
+                            lineHeight = 20.sp,
+                            color = Color.Gray
+                        )
+                    }
+                    }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
@@ -123,37 +124,11 @@ fun EditCustomerInfoPop(
                         ),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text(text = "Cancel")
+                        Text(text = "Close")
                     }
 
-                    Spacer(modifier = Modifier.width(12.dp))
 
-                    // UPDATE BUTTON
-                    Button(
-                        onClick = {
-                            showValidationErrors = true
 
-                            if (customerName.isNotBlank() && phone.isNotBlank()) {
-
-                                generalOrderViewModel.updateGenOrderById(
-                                  customerName = customerName,
-                                    phone = phone,
-                                    addressDescription = addressDesc,
-                                    totalOrder = total,
-                                    orderNumber = orderNumber
-                                )
-                                Toast.makeText(context, "Customer info updated", Toast.LENGTH_SHORT).show()
-                                onDismiss()
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(id = R.color.punch_red),
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text(text = "Update")
-                    }
                 }
 
             }

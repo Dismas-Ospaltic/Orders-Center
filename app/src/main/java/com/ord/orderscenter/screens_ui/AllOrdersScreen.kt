@@ -2,9 +2,7 @@ package com.ord.orderscenter.screens_ui
 
 
 
-import android.content.Intent
-import android.widget.Toast
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -13,19 +11,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.colorResource
 import com.ord.orderscenter.R
@@ -45,17 +36,8 @@ import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.regular.ThumbsUp
-import compose.icons.fontawesomeicons.regular.TrashAlt
 import compose.icons.fontawesomeicons.solid.AngleLeft
-import compose.icons.fontawesomeicons.solid.CircleNotch
-import compose.icons.fontawesomeicons.solid.Cog
-import compose.icons.fontawesomeicons.solid.Cogs
-import compose.icons.fontawesomeicons.solid.InfoCircle
-import compose.icons.fontawesomeicons.solid.Pen
-import compose.icons.fontawesomeicons.solid.Plus
 import compose.icons.fontawesomeicons.solid.Search
-import compose.icons.fontawesomeicons.solid.ShareAlt
 import org.koin.androidx.compose.koinViewModel
 
 

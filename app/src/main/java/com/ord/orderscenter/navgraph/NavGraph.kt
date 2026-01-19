@@ -6,9 +6,8 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import androidx.compose.animation.*
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.ord.orderscenter.screens_ui.AboutTheApp
 import com.ord.orderscenter.screens_ui.AddOrderScreen
 import com.ord.orderscenter.screens_ui.MainScreen
 import com.ord.orderscenter.screens_ui.SettingScreen
@@ -16,7 +15,7 @@ import com.ord.orderscenter.screens_ui.AllOrdersScreen
 import com.ord.orderscenter.screens_ui.PaidOrdersScreen
 import com.ord.orderscenter.screens_ui.TodayOrdersScreen
 import com.ord.orderscenter.screens_ui.UnpaidOrdersScreen
-import org.koin.androidx.compose.getViewModel
+
 
 
 sealed class Screen(val route: String) {
@@ -30,6 +29,8 @@ sealed class Screen(val route: String) {
     object PaidOrders: Screen("paidOrders")
 
     object UnpaidOrders: Screen("unpaidOrders")
+
+    object AboutApp: Screen("aboutApp")
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -55,11 +56,12 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier) {
 
         composable(Screen.UnpaidOrders.route){ UnpaidOrdersScreen(navController) }
 
+        composable(Screen.AboutApp.route){ AboutTheApp(navController) }
+
         composable(Screen.TodayOrder.route) { backStackEntry ->
             val dateId = backStackEntry.arguments?.getString("dateId") ?: "Unknown"
             TodayOrdersScreen(navController, dateId)
         }
-
 
 
     }

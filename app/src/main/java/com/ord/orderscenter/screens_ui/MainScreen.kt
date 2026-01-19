@@ -28,12 +28,9 @@ import com.ord.orderscenter.screens_ui.screen_components.ActionButtonsBox
 import com.ord.orderscenter.screens_ui.screen_components.StatsBox
 import com.ord.orderscenter.utils.StatusBarColor
 import com.ord.orderscenter.utils.standardizedDateFormat
-import com.ord.orderscenter.viewmodel.GeneralOrderViewModel
-import com.ord.orderscenter.viewmodel.IndividualOrderViewModel
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ClipboardList
-import org.koin.androidx.compose.koinViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,51 +40,6 @@ fun MainScreen(navController: NavController) {
     StatusBarColor(backgroundColor)
 
     Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                title = {
-//                        Text("Orders Center", color = Color.White)
-//
-//                },
-//                actions = {
-//
-//                    Button(
-//                        onClick = {
-//
-//                        },
-//                        shape = RoundedCornerShape(10.dp),
-//                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id=R.color.space_indigo))
-//                    ) {
-////                        Text("Today's Orders", color = Color.White)
-//
-//
-//                        Row(
-//                            verticalAlignment = Alignment.CenterVertically,
-//                            horizontalArrangement = Arrangement.spacedBy(3.dp),
-//                            modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp)
-//                        ) {
-//                            Icon(
-//                                imageVector = FontAwesomeIcons.Solid.ClipboardList,
-//                                contentDescription = "Today's Orders",
-//                                tint = colorResource(id=R.color.white),
-//                                modifier = Modifier.size(20.dp)
-//                            )
-//                            Text(
-//                                text = "Today's Orders",
-//                                color = colorResource(id=R.color.white),
-//                                fontSize = 16.sp
-//                            )
-//                        }
-//                    }
-//
-//                },
-//                colors = TopAppBarDefaults.topAppBarColors(
-//                    containerColor = backgroundColor, // dark green
-//                    titleContentColor = Color.White,
-//                    navigationIconContentColor = Color.White
-//                )
-//            )
-//        }
         topBar = {
             TopAppBar(
                 title = {

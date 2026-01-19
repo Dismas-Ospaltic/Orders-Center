@@ -3,10 +3,8 @@ package com.ord.orderscenter.repository
 
 
 import com.ord.orderscenter.data.localdatabase.IndividualDao
-import com.ord.orderscenter.model.GeneralOrdersEntity
 import com.ord.orderscenter.model.IndividualItemEntity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class IndividualItemRepository(private val individualDao: IndividualDao) {
 
